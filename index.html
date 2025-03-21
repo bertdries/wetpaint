@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WET PAINT - Split-Screen Art Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WET PAINT - Optimized Layout</title>
   <style>
     /* RESET */
     * {
@@ -11,113 +11,131 @@
       padding: 0;
       box-sizing: border-box;
     }
-    /* Verwijderd: html, body {height:100%; overflow:hidden;} 
-       zodat er gescrold kan worden */
-    body {
+    /* Basisinstellingen */
+    html, body {
       font-family: 'Helvetica Neue', sans-serif;
       background-color: #fff;
       color: #111;
-      /* Zorg dat de vaste slider onderaan niet over de content heengaat */
-      padding-bottom: 15vh; /* Ruimte vrijhouden voor de slider */
+    }
+    /* Zorg dat de vaste slider onderaan de content niet overlapt */
+    body {
+      padding-bottom: 15vh;
     }
 
     /****************************************
-     1. SPLIT-SCREEN (Slideshow links + Tekst rechts)
+     1. SPLIT-SCREEN (Desktop Layout)
+        Links: Slideshow
+        Rechts: Content met top-bar (titel + BUY NOW knop) en tekst + extra knop
     *****************************************/
     .split-screen {
       display: flex;
-      flex-wrap: wrap;
-      /* Verwijderd: height: calc(100vh - 15vh); 
-         Laat de sectie automatisch in hoogte groeien */
+      flex-wrap: nowrap;
       width: 100%;
+      min-height: 100vh;
     }
-    /* LEFT SIDE: SLIDESHOW */
-    .left-side {
-      position: relative;
-      flex: 1;
-      min-width: 300px;
-      /* Verwijderd: height: 100%; */
-      overflow: hidden;
-    }
+    /* LEFT SIDE: Slideshow */
+.left-side {
+  flex: 1;
+  min-width: 400px;
+  display: flex;
+  align-items: flex-start; /* Zorgt dat de content bovenaan staat */
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
     .slides {
       width: 100%;
-      /* Verwijderd: height: 100%; */
-      position: relative;
+      display: block;
     }
     .slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      /* Verwijderd: height: 100%; */
       display: none;
-    }
-    .slide img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      position: relative;
     }
     .slide.active {
       display: block;
     }
-    /* Pijltjes op de slideshow */
+    .slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* Pijlknoppen (verticaal gecentreerd over de afbeelding) */
     .slide-btn {
       position: absolute;
-      top: 50%;
+      top: 25%;
       transform: translateY(-50%);
       background-color: rgba(0,0,0,0.8);
       color: #fff;
       border: none;
       font-size: 2rem;
-      width: 100px;   /* Vergrote breedte */
-      height: 100px;  /* Vergrote hoogte */
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
       cursor: pointer;
-      transition: background 0.3s;
       z-index: 2;
-      border-radius: 50%;  /* Zorgt voor een perfecte cirkel */
+      transition: background 0.3s;
     }
     .slide-btn:hover {
-      background-color: rgba(234,141,47);
-      color: #000000;
+      background-color: rgba(234,141,47,0.9);
+      color: #000;
     }
     .prev-slide {
-      left: 10px;
+      left: 2%;
     }
     .next-slide {
-      right: 10px;
+      right: 2%;
     }
 
-    /* Highlight */
+    /* RIGHT SIDE: Content */
+    .right-side {
+      flex: 1;
+      min-width: 400px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      justify-content: center;
+    }
+    /* Top-bar: Titel + extra BUY NOW knop */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    .top-bar h1 {
+      font-size: 6rem;
+      letter-spacing: 2px;
+    }
+    .top-buy-btn {
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      font-size: 2rem;
+      font-weight: 900;
+      padding: 0.5rem 1.5rem;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .top-buy-btn:hover {
+      background-color: rgb(255,128,0);
+      color: #000;
+    }
+    /* Content-tekst en extra BUY NOW knop */
+    .content {
+      max-width: 600px;
+      line-height: 1.5;
+    }
+    .content p {
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+    }
     .highlight {
       background-color: rgb(255,128,0);
       font-weight: bold;
       color: black;
       padding: 0.1em;
-    }
-
-    /* RIGHT SIDE: TEKST & BUY NOW */
-    .right-side {
-      flex: 1;
-      min-width: 300px;
-      /* Verwijderd: height: 100%; */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-    .content {
-      max-width: 1000px;
-      text-align: left;
-      line-height: 1.5;
-    }
-    .content h1 {
-      font-size: 8rem;
-      margin-bottom: 1rem;
-      letter-spacing: 2px;
-    }
-    .content p {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
     }
     .buy-now {
       display: inline-block;
@@ -125,19 +143,19 @@
       background-color: #000;
       color: #fff;
       text-decoration: none;
-      font-size: 3rem;
+      font-size: 2rem;
       border-radius: 10px;
       transition: background 0.3s;
-      font-weight:900;
+      font-weight: 900;
+      margin-top: 1rem;
     }
     .buy-now:hover {
       background-color: rgb(255,128,0);
-      color: #000000;
+      color: #000;
     }
 
     /****************************************
-     2. FULL-WIDTH TEXT SLIDER (AUTOMATISCH SLIDEN)
-         FIXED ONDERAAN DE PAGINA
+     2. FIXED TEXT SLIDER (onderaan de pagina)
     *****************************************/
     .text-slider {
       position: fixed;
@@ -146,10 +164,10 @@
       width: 100%;
       height: 15vh;
       overflow: hidden;
-      background-color: #000000;
+      background-color: #000;
       display: flex;
       align-items: center;
-      color: #ffffff;
+      color: #fff;
     }
     .text-slides {
       display: inline-block;
@@ -162,7 +180,7 @@
       vertical-align: top;
     }
     .text-slide h2 {
-      font-size: 5rem;
+      font-size: 3rem;
       margin-bottom: 0.5rem;
     }
     .text-slide p {
@@ -174,26 +192,32 @@
     }
 
     /****************************************
-     3. RESPONSIVE (Mobiel optimalisatie)
+     3. RESPONSIVE (Mobiel Optimalisatie)
     *****************************************/
     @media (max-width: 768px) {
       .split-screen {
         flex-direction: column;
-        /* Verwijderd: height: calc(100vh - 15vh); */
       }
       .left-side, .right-side {
-        /* Verwijderd: height: 50%; */
         width: 100%;
       }
-      .content h1 {
+      .slide-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+      .top-bar h1 {
         font-size: 3rem;
+      }
+      .top-buy-btn {
+        font-size: 1.4rem;
+        padding: 0.5rem 1rem;
       }
       .content p {
         font-size: 1rem;
       }
       .buy-now {
-        font-size: 1.5rem;
-        padding: 0.5rem 1rem;
+        font-size: 1.2rem;
       }
       .text-slide h2 {
         font-size: 1.5rem;
@@ -206,37 +230,41 @@
 </head>
 <body>
 
-  <!-- 1. SPLIT-SCREEN: LINKS SLIDESHOW, RECHTS TEKST -->
+  <!-- SPLIT-SCREEN: Links Slideshow, Rechts Content -->
   <section class="split-screen">
-    <!-- LEFT SIDE: SLIDESHOW -->
+    <!-- LEFT SIDE: Slideshow -->
     <div class="left-side">
       <button class="slide-btn prev-slide" onclick="changeSlide(-1)">&#10094;</button>
       <button class="slide-btn next-slide" onclick="changeSlide(1)">&#10095;</button>
       <div class="slides">
         <div class="slide active">
-          <img src="https://i.ibb.co/sYFWnHg/Trump-Spraytan-Framed-front.jpg" alt="Wet Paint">
+          <img src="https://i.ibb.co/sYFWnHg/Trump-Spraytan-Framed-front.jpg" alt="Wet Paint 1">
         </div>
         <div class="slide">
-          <img src="https://i.ibb.co/Q7G5KW1Q/Trump-Spraytan-Framed-painter-detail.jpg" alt="Wet Paint">
+          <img src="https://i.ibb.co/Q7G5KW1Q/Trump-Spraytan-Framed-painter-detail.jpg" alt="Wet Paint 2">
         </div>
         <div class="slide">
-          <img src="https://i.ibb.co/ccQvKN63/Trump-Spraytan-Framed-frame-detail.jpg" alt="Wet Paint">
+          <img src="https://i.ibb.co/ccQvKN63/Trump-Spraytan-Framed-frame-detail.jpg" alt="Wet Paint 3">
         </div>
         <div class="slide">
-          <img src="https://i.ibb.co/Y4j3v3NP/Trump-Spraytan-Framed-full-detail.jpg" alt="Wet Paint">
+          <img src="https://i.ibb.co/Y4j3v3NP/Trump-Spraytan-Framed-full-detail.jpg" alt="Wet Paint 4">
         </div>
         <div class="slide">
-          <img src="https://i.ibb.co/qYPWzLyb/Trump-Spraytan-Framed-detail-02.jpg" alt="Wet Paint">
+          <img src="https://i.ibb.co/qYPWzLyb/Trump-Spraytan-Framed-detail-02.jpg" alt="Wet Paint 5">
         </div>
         <div class="slide">
-          <img src="https://i.ibb.co/0yyzs4X7/Trump-Spraytan-Framed-detail-01.jpg" alt="Wet Paint">
+          <img src="https://i.ibb.co/0yyzs4X7/Trump-Spraytan-Framed-detail-01.jpg" alt="Wet Paint 6">
         </div>
       </div>
     </div>
-    <!-- RIGHT SIDE: TEKST & BUY NOW -->
+
+    <!-- RIGHT SIDE: Content (Top-bar + Tekst + Extra BUY NOW-knop) -->
     <div class="right-side">
-      <div class="content">
+      <div class="top-bar">
         <h1>WET PAINT</h1>
+        <a class="top-buy-btn" href="https://musketon.myshopify.com/cart/48688723558733:1?channel=buy_button" target="_blank">BUY NOW</a>
+      </div>
+      <div class="content">
         <p>
           <strong>Medium:</strong> <span class="highlight">9-color silkscreen</span> print with custom 3D element and specialty ink finish<br><br>
           <strong>Edition:</strong> Limited edition of 6<br><br>
@@ -254,7 +282,7 @@
     </div>
   </section>
 
-  <!-- 2. FULL-WIDTH TEXT SLIDER (AUTOMATICALLY SLIDING, FIXED AT BOTTOM) -->
+  <!-- FIXED TEXT SLIDER ONDERAAN -->
   <section class="text-slider">
     <div class="text-slides">
       <div class="text-slide">
@@ -263,7 +291,7 @@
     </div>
   </section>
 
-  <!-- 3. JAVASCRIPT: SLIDESHOW -->
+  <!-- SLIDESHOW SCRIPT -->
   <script>
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
@@ -280,6 +308,5 @@
       showSlide(currentSlide);
     }
   </script>
-
 </body>
 </html>
