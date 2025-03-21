@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TRUMPED - Split-Screen Art Page</title>
+  <title>WET PAINT - Split-Screen Art Page</title>
   <style>
     /* RESET */
     * {
@@ -11,24 +11,24 @@
       padding: 0;
       box-sizing: border-box;
     }
-    html, body {
-      height: 100%;
-      overflow: hidden;
-    }
+    /* Verwijderd: html, body {height:100%; overflow:hidden;} 
+       zodat er gescrold kan worden */
     body {
       font-family: 'Helvetica Neue', sans-serif;
       background-color: #fff;
       color: #111;
+      /* Zorg dat de vaste slider onderaan niet over de content heengaat */
+      padding-bottom: 15vh; /* Ruimte vrijhouden voor de slider */
     }
 
     /****************************************
      1. SPLIT-SCREEN (Slideshow links + Tekst rechts)
     *****************************************/
-    /* We reserveren 15vh voor de text slider, dus de split-screen krijgt de rest */
     .split-screen {
       display: flex;
       flex-wrap: wrap;
-      height: calc(100vh - 15vh);
+      /* Verwijderd: height: calc(100vh - 15vh); 
+         Laat de sectie automatisch in hoogte groeien */
       width: 100%;
     }
     /* LEFT SIDE: SLIDESHOW */
@@ -36,12 +36,12 @@
       position: relative;
       flex: 1;
       min-width: 300px;
-      height: 100%;
+      /* Verwijderd: height: 100%; */
       overflow: hidden;
     }
     .slides {
       width: 100%;
-      height: 100%;
+      /* Verwijderd: height: 100%; */
       position: relative;
     }
     .slide {
@@ -49,7 +49,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      /* Verwijderd: height: 100%; */
       display: none;
     }
     .slide img {
@@ -76,15 +76,6 @@
       z-index: 2;
       border-radius: 50%;  /* Zorgt voor een perfecte cirkel */
     }
-    
-     .highlight {
-      background-color: rgb(255,128,0);
-      font-weight: bold;
-      color: black;
-      padding: 0.1em;
-    }
-
-    }
     .slide-btn:hover {
       background-color: rgba(234,141,47);
       color: #000000;
@@ -95,11 +86,20 @@
     .next-slide {
       right: 10px;
     }
+
+    /* Highlight */
+    .highlight {
+      background-color: rgb(255,128,0);
+      font-weight: bold;
+      color: black;
+      padding: 0.1em;
+    }
+
     /* RIGHT SIDE: TEKST & BUY NOW */
     .right-side {
       flex: 1;
       min-width: 300px;
-      height: 100%;
+      /* Verwijderd: height: 100%; */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -179,10 +179,11 @@
     @media (max-width: 768px) {
       .split-screen {
         flex-direction: column;
-        height: calc(100vh - 15vh);
+        /* Verwijderd: height: calc(100vh - 15vh); */
       }
       .left-side, .right-side {
-        height: 50%;
+        /* Verwijderd: height: 50%; */
+        width: 100%;
       }
       .content h1 {
         font-size: 3rem;
@@ -236,18 +237,18 @@
     <div class="right-side">
       <div class="content">
         <h1>WET PAINT</h1>
-              <p>
-        <strong>Medium:</strong> <span class="highlight">9-color silkscreen</span> print with custom 3D element and specialty ink finish<br><br>
-        <strong>Edition:</strong> Limited edition of 6<br><br>
-        <strong>Dimensions:</strong> 73,5 x 54 cm<br><br>
-        <strong>Description:</strong><br>
-        'WET PAINT' is a bold, multi-layered silkscreen artwork by Musketon, combining technical precision with sculptural detail and <span class="highlight">political satire</span>. Printed in 10 distinct colors, this piece features a striking hair treatment using specialty <span class="highlight">gold flake ink</span>—a shimmering, reflective finish that catches the light and reinforces the absurd theatricality of the subject: Donald J. Trump.<br><br>
-        A unique <span class="highlight">custom-made 3D printed painter</span> is fixed inside the frame, positioned mid-action as he paints Trump entirely in orange. This miniature sculptural detail bridges the gap between two-dimensional print and physical object, creating a hybrid work that challenges the boundaries of traditional printmaking.<br><br>
-        The frame is <span class="highlight">custom built</span> in <span class="highlight">Belgium</span> using high-grade pine wood and fitted with museum-grade <span class="highlight">Artglass™</span>, ensuring both elegance and archival quality. Each piece is ready to hang, complete with integrated mounting hardware for <span class="highlight">effortless installation</span>.<br><br>
-        The work is hand-signed by Musketon on the front, and includes a holographic, signed and numbered certificate on the back of the piece. A second certificate of authenticity with full artwork details is included in a sealed envelope.<br><br>
-        To emphasize exclusivity and personal connection, <span class="highlight">each piece is personally hand-delivered</span> to your door within Belgium by Musketon himself.<br><br>
-        This artwork is a fusion of satire, craftsmanship, and collectibility—designed to provoke, amuse, and endure.
-     </p>
+        <p>
+          <strong>Medium:</strong> <span class="highlight">9-color silkscreen</span> print with custom 3D element and specialty ink finish<br><br>
+          <strong>Edition:</strong> Limited edition of 6<br><br>
+          <strong>Dimensions:</strong> 73,5 x 54 cm<br><br>
+          <strong>Description:</strong><br>
+          'WET PAINT' is a bold, multi-layered silkscreen artwork by Musketon, combining technical precision with sculptural detail and <span class="highlight">political satire</span>. Printed in 10 distinct colors, this piece features a striking hair treatment using specialty <span class="highlight">gold flake ink</span>—a shimmering, reflective finish that catches the light and reinforces the absurd theatricality of the subject: Donald J. Trump.<br><br>
+          A unique <span class="highlight">custom-made 3D printed painter</span> is fixed inside the frame, positioned mid-action as he paints Trump entirely in orange. This miniature sculptural detail bridges the gap between two-dimensional print and physical object, creating a hybrid work that challenges the boundaries of traditional printmaking.<br><br>
+          The frame is <span class="highlight">custom built</span> in <span class="highlight">Belgium</span> using high-grade pine wood and fitted with museum-grade <span class="highlight">Artglass™</span>, ensuring both elegance and archival quality. Each piece is ready to hang, complete with integrated mounting hardware for <span class="highlight">effortless installation</span>.<br><br>
+          The work is hand-signed by Musketon on the front, and includes a holographic, signed and numbered certificate on the back of the piece. A second certificate of authenticity with full artwork details is included in a sealed envelope.<br><br>
+          To emphasize exclusivity and personal connection, <span class="highlight">each piece is personally hand-delivered</span> to your door within Belgium by Musketon himself.<br><br>
+          This artwork is a fusion of satire, craftsmanship, and collectibility—designed to provoke, amuse, and endure.
+        </p>
         <a class="buy-now" href="https://musketon.myshopify.com/cart/48688723558733:1?channel=buy_button" target="_blank">BUY NOW</a>
       </div>
     </div>
