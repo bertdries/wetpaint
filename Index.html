@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TRUMPED - Split-Screen Art Page</title>
+  <style>
+    /* RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #fff;
+      color: #111;
+    }
+
+    /****************************************
+     1. SPLIT-SCREEN (Slideshow links + Tekst rechts)
+    *****************************************/
+    /* We reserveren 15vh voor de text slider, dus de split-screen krijgt de rest */
+    .split-screen {
+      display: flex;
+      flex-wrap: wrap;
+      height: calc(100vh - 15vh);
+      width: 100%;
+    }
+    /* LEFT SIDE: SLIDESHOW */
+    .left-side {
+      position: relative;
+      flex: 1;
+      min-width: 300px;
+      height: 100%;
+      overflow: hidden;
+    }
+    .slides {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .slide.active {
+      display: block;
+    }
+    /* Pijltjes op de slideshow */
+    .slide-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.8);
+      color: #fff;
+      border: none;
+      font-size: 2rem;
+      width: 100px;   /* Vergrote breedte */
+      height: 100px;  /* Vergrote hoogte */
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 2;
+      border-radius: 50%;  /* Zorgt voor een perfecte cirkel */
+    }
+    
+     .highlight {
+      background-color: rgb(255,128,0);
+      font-weight: bold;
+      color: black;
+      padding: 0.1em;
+    }
+
+    }
+    .slide-btn:hover {
+      background-color: rgba(234,141,47);
+      color: #000000;
+    }
+    .prev-slide {
+      left: 10px;
+    }
+    .next-slide {
+      right: 10px;
+    }
+    /* RIGHT SIDE: TEKST & BUY NOW */
+    .right-side {
+      flex: 1;
+      min-width: 300px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .content {
+      max-width: 1000px;
+      text-align: left;
+      line-height: 1.5;
+    }
+    .content h1 {
+      font-size: 8rem;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+    }
+    .content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .buy-now {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      font-size: 3rem;
+      border-radius: 10px;
+      transition: background 0.3s;
+      font-weight:900;
+    }
+    .buy-now:hover {
+      background-color: rgb(255,128,0);
+      color: #000000;
+    }
+
+    /****************************************
+     2. FULL-WIDTH TEXT SLIDER (AUTOMATISCH SLIDEN)
+         FIXED ONDERAAN DE PAGINA
+    *****************************************/
+    .text-slider {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 15vh;
+      overflow: hidden;
+      background-color: #000000;
+      display: flex;
+      align-items: center;
+      color: #ffffff;
+    }
+    .text-slides {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marquee 30s linear infinite;
+    }
+    .text-slide {
+      display: inline-block;
+      padding: 0 2rem;
+      vertical-align: top;
+    }
+    .text-slide h2 {
+      font-size: 5rem;
+      margin-bottom: 0.5rem;
+    }
+    .text-slide p {
+      font-size: 1.2rem;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /****************************************
+     3. RESPONSIVE (Mobiel optimalisatie)
+    *****************************************/
+    @media (max-width: 768px) {
+      .split-screen {
+        flex-direction: column;
+        height: calc(100vh - 15vh);
+      }
+      .left-side, .right-side {
+        height: 50%;
+      }
+      .content h1 {
+        font-size: 3rem;
+      }
+      .content p {
+        font-size: 1rem;
+      }
+      .buy-now {
+        font-size: 1.5rem;
+        padding: 0.5rem 1rem;
+      }
+      .text-slide h2 {
+        font-size: 1.5rem;
+      }
+      .text-slide p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. SPLIT-SCREEN: LINKS SLIDESHOW, RECHTS TEKST -->
+  <section class="split-screen">
+    <!-- LEFT SIDE: SLIDESHOW -->
+    <div class="left-side">
+      <button class="slide-btn prev-slide" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="slide-btn next-slide" onclick="changeSlide(1)">&#10095;</button>
+      <div class="slides">
+        <div class="slide active">
+          <img src="https://i.ibb.co/sYFWnHg/Trump-Spraytan-Framed-front.jpg" alt="Wet Paint">
+        </div>
+        <div class="slide">
+          <img src="https://i.ibb.co/Q7G5KW1Q/Trump-Spraytan-Framed-painter-detail.jpg" alt="Wet Paint">
+        </div>
+        <div class="slide">
+          <img src="https://i.ibb.co/ccQvKN63/Trump-Spraytan-Framed-frame-detail.jpg" alt="Wet Paint">
+        </div>
+        <div class="slide">
+          <img src="https://i.ibb.co/Y4j3v3NP/Trump-Spraytan-Framed-full-detail.jpg" alt="Wet Paint">
+        </div>
+        <div class="slide">
+          <img src="https://i.ibb.co/qYPWzLyb/Trump-Spraytan-Framed-detail-02.jpg" alt="Wet Paint">
+        </div>
+        <div class="slide">
+          <img src="https://i.ibb.co/0yyzs4X7/Trump-Spraytan-Framed-detail-01.jpg" alt="Wet Paint">
+        </div>
+      </div>
+    </div>
+    <!-- RIGHT SIDE: TEKST & BUY NOW -->
+    <div class="right-side">
+      <div class="content">
+        <h1>WET PAINT</h1>
+              <p>
+        <strong>Medium:</strong> <span class="highlight">9-color silkscreen</span> print with custom 3D element and specialty ink finish<br><br>
+        <strong>Edition:</strong> Limited edition of 6<br><br>
+        <strong>Dimensions:</strong> 73,5 x 54 cm<br><br>
+        <strong>Description:</strong><br>
+        'WET PAINT' is a bold, multi-layered silkscreen artwork by Musketon, combining technical precision with sculptural detail and <span class="highlight">political satire</span>. Printed in 10 distinct colors, this piece features a striking hair treatment using specialty <span class="highlight">gold flake ink</span>—a shimmering, reflective finish that catches the light and reinforces the absurd theatricality of the subject: Donald J. Trump.<br><br>
+        A unique <span class="highlight">custom-made 3D printed painter</span> is fixed inside the frame, positioned mid-action as he paints Trump entirely in orange. This miniature sculptural detail bridges the gap between two-dimensional print and physical object, creating a hybrid work that challenges the boundaries of traditional printmaking.<br><br>
+        The frame is <span class="highlight">custom built</span> in <span class="highlight">Belgium</span> using high-grade pine wood and fitted with museum-grade <span class="highlight">Artglass™</span>, ensuring both elegance and archival quality. Each piece is ready to hang, complete with integrated mounting hardware for <span class="highlight">effortless installation</span>.<br><br>
+        The work is hand-signed by Musketon on the front, and includes a holographic, signed and numbered certificate on the back of the piece. A second certificate of authenticity with full artwork details is included in a sealed envelope.<br><br>
+        To emphasize exclusivity and personal connection, <span class="highlight">each piece is personally hand-delivered</span> to your door within Belgium by Musketon himself.<br><br>
+        This artwork is a fusion of satire, craftsmanship, and collectibility—designed to provoke, amuse, and endure.
+     </p>
+        <a class="buy-now" href="https://musketon.myshopify.com/cart/48688723558733:1?channel=buy_button" target="_blank">BUY NOW</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. FULL-WIDTH TEXT SLIDER (AUTOMATICALLY SLIDING, FIXED AT BOTTOM) -->
+  <section class="text-slider">
+    <div class="text-slides">
+      <div class="text-slide">
+        <h2>“Tremendous piece. Truly spectacular.” — “This should cost millions. Maybe billions.” — “This art will make your home great again.” — “Musketon? Genius. Maybe almost as smart as me.”</h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. JAVASCRIPT: SLIDESHOW -->
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(n) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      slides[n].classList.add('active');
+    }
+
+    function changeSlide(direction) {
+      currentSlide += direction;
+      if (currentSlide < 0) currentSlide = slides.length - 1;
+      if (currentSlide >= slides.length) currentSlide = 0;
+      showSlide(currentSlide);
+    }
+  </script>
+
+</body>
+</html>
